@@ -1,4 +1,5 @@
 import CTASection from "@/components/CTASection";
+import FAQSection from "@/components/FAQSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 import HomePage from "@/components/HomePage";
@@ -12,6 +13,7 @@ export default function Page() {
       <FeaturesSection />
       <StatsSection/>
       <HowItWorksSection/>
+      <FAQSection/>
       <CTASection/>
       <Footer />
     </div>
