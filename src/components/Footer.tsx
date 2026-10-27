@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
  import Link from "next/link";
 
 export default function Footer() {
@@ -101,3 +102,8 @@ export default function Footer() {
     </footer>
   );
 }
+=======
+export default function Footer() {
+  return <footer className="p-4 text-center text-sm text-slate-500">Footer</footer>;
+}
+>>>>>>> Stashed changes
