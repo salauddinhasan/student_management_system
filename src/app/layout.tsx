@@ -1,6 +1,6 @@
-// layout.tsx
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -9,9 +9,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-        {children}
+      <body className="bg-[#09090b] text-white">
+        <AuthProvider>
+          {children}
+          <Toaster position="top-right" />
+        </AuthProvider>
       </body>
     </html>
   );

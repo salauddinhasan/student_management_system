@@ -34,7 +34,7 @@ const HomePage = () => {
         {/* Buttons */}
         <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/login"
+            href="/admin"
             className="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-900 rounded-lg font-semibold hover:bg-slate-200 hover:scale-105 transition-all duration-300 text-base shadow-[0_0_20px_rgba(139,92,246,0.3)]"
           >
             Get Started
