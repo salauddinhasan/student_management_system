@@ -1,15 +1,10 @@
-<<<<<<< Updated upstream
- import Link from "next/link";
+import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer className="bg-[#0d0d12] border-t border-white/5 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-8">
-        
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          
-          {/* Brand Section (2 Columns) */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-6 inline-flex">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
@@ -32,13 +27,10 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              A modern digital management system for the CSE department. 
-              Built to make attendance and marks management effortless for 
-              both teachers and students.
+              A modern digital management system for the CSE department. Built to make attendance and marks management effortless for both teachers and students.
             </p>
           </div>
 
-          {/* Links Section 1 */}
           <div>
             <h4 className="text-white font-semibold mb-6 text-sm tracking-wider uppercase">
               Platform
@@ -62,7 +54,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links Section 2 */}
           <div>
             <h4 className="text-white font-semibold mb-6 text-sm tracking-wider uppercase">
               Account
@@ -80,10 +71,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} StudentMS. All rights reserved.
@@ -97,13 +86,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-
       </div>
     </footer>
   );
 }
-=======
-export default function Footer() {
-  return <footer className="p-4 text-center text-sm text-slate-500">Footer</footer>;
-}
->>>>>>> Stashed changes
