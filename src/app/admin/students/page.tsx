@@ -60,13 +60,50 @@ export default function StudentsPage() {
     }
   };
 
-  // ডামি ফাংশন (পরে কাজ করবেন)
-  const handleDelete = (id: string) => {
-    toast.error("Delete feature coming soon!");
+  // ডিলিট করার ফাংশন
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this student?")) return;
+
+    try {
+      const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        toast.success("Student deleted successfully!");
+        fetchStudents(); // টেবিল রিফ্রেশ
+      } else {
+        toast.error("Failed to delete student");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
-  const handleEdit = (id: string) => {
-    toast.error("Edit feature coming soon!");
+  // এডিট করার ফাংশন (পপ-আপ দিয়ে)
+  const handleEdit = (student: any) => {
+    const newName = prompt("Enter new name:", student.name);
+    const newRoll = prompt("Enter new roll:", student.roll);
+    const newSemester = prompt("Enter new semester (1st-8th):", student.semester);
+
+    if (newName && newRoll && newSemester) {
+      updateStudent(student._id, newName, newRoll, newSemester);
+    }
+  };
+
+  const updateStudent = async (id: string, name: string, roll: string, semester: string) => {
+    try {
+      const res = await fetch(`/api/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, roll, semester }),
+      });
+      if (res.ok) {
+        toast.success("Student updated successfully!");
+        fetchStudents();
+      } else {
+        toast.error("Failed to update student");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -119,8 +156,8 @@ export default function StudentsPage() {
                     <td className="px-6 py-4">{student.department}</td>
                     <td className="px-6 py-4">{student.semester}</td>
                     <td className="px-6 py-4 text-right">
-                      {/* Actions বাটনগুলো */}
                       <div className="flex items-center justify-end gap-2">
+                        {/* View Button */}
                         <button 
                           onClick={() => router.push(`/admin/students/${student._id}`)}
                           className="p-1.5 text-slate-400 hover:text-violet-400 hover:bg-violet-500/10 rounded-md transition-colors"
@@ -128,13 +165,17 @@ export default function StudentsPage() {
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                         </button>
+                        
+                        {/* Edit Button (handleEdit(student) পাস করা হয়েছে) */}
                         <button 
-                          onClick={() => handleEdit(student._id)}
+                          onClick={() => handleEdit(student)}
                           className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-colors"
                           title="Edit"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                         </button>
+
+                        {/* Delete Button */}
                         <button 
                           onClick={() => handleDelete(student._id)}
                           className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
