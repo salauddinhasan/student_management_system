@@ -13,7 +13,7 @@ function MarksContent() {
   const [students, setStudents] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [examName, setExamName] = useState("Midterm");
+  const [examName, setExamName] = useState("Quiz 1");
 
   useEffect(() => {
     if (!classId) {
@@ -23,17 +23,15 @@ function MarksContent() {
     }
 
     const fetchData = async () => {
+      setIsLoading(true);
       try {
-        const res = await fetch(`/api/teacher-marks?classId=${classId}`);
+        // API-তে examName পাঠানো হচ্ছে
+        const res = await fetch(`/api/teacher-marks?classId=${classId}&examName=${examName}`);
         const data = await res.json();
 
         if (res.ok) {
           setClassData(data.classData);
-          const formattedStudents = data.students.map((s: any) => ({
-            ...s,
-            marks: "",
-          }));
-          setStudents(formattedStudents);
+          setStudents(data.students);
         } else {
           toast.error(data.error || "Failed to load data");
         }
@@ -45,7 +43,7 @@ function MarksContent() {
     };
 
     fetchData();
-  }, [classId, router]);
+  }, [classId, router, examName]); // <-- examName ডিপেন্ডেন্সি
 
   const handleMarkChange = (id: string, value: string) => {
     setStudents(
@@ -63,16 +61,16 @@ function MarksContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           classId,
-          examName,
+          examName, // <-- নির্দিষ্ট পরীক্ষার নাম পাঠানো হচ্ছে
           marksData: students.map((s) => ({
             studentId: s._id,
-            mark: s.marks,
+            mark: s.marks, // <-- আগের মতো শুধু একটা নম্বর
           })),
         }),
       });
 
       if (res.ok) {
-        toast.success("Marks submitted successfully!");
+        toast.success(`${examName} marks submitted successfully!`);
         router.push("/teacher");
       } else {
         toast.error("Failed to submit marks");
@@ -106,16 +104,18 @@ function MarksContent() {
           </div>
         </div>
         
-        {/* Exam Selector */}
+        {/* Exam Selector Dropdown */}
         <div className="flex items-center gap-3 bg-black/40 border border-white/10 px-4 py-2.5 rounded-xl">
+          <label className="text-sm text-slate-400 font-medium">Select Exam:</label>
           <select
             value={examName}
             onChange={(e) => setExamName(e.target.value)}
-            className="bg-transparent text-white text-base font-medium focus:outline-none"
+            className="bg-[#121214] text-white text-base font-bold focus:outline-none cursor-pointer p-1 rounded-md border border-white/20"
           >
-            <option value="Quiz 1">Quiz 1</option>
-            <option value="Midterm">Midterm</option>
-            <option value="Final">Final</option>
+            <option value="Quiz 1" className="bg-[#121214] text-white">Quiz 1</option>
+            <option value="Quiz 2" className="bg-[#121214] text-white">Quiz 2</option>
+            <option value="Midterm" className="bg-[#121214] text-white">Midterm</option>
+            <option value="Final" className="bg-[#121214] text-white">Final</option>
           </select>
         </div>
       </div>
@@ -172,7 +172,7 @@ function MarksContent() {
           {isSaving ? "Saving..." : (
             <>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-              Submit Marks
+              Save {examName} Marks
             </>
           )}
         </button>

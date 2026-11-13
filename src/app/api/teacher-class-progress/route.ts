@@ -13,16 +13,14 @@ export async function GET(req: Request) {
 
     if (!classId) return NextResponse.json({ error: "Class ID required" }, { status: 400 });
 
-    // ১. ক্লাসের তথ্য আনা
     const classData = await db.collection("classes").findOne({ _id: new mongoose.Types.ObjectId(classId) });
     if (!classData) return NextResponse.json({ error: "Class not found" }, { status: 404 });
 
-    // ২. ওই সেমিস্টারের স্টুডেন্টদের আনা
     const students = await db.collection("students").find({ semester: classData.semester }).toArray();
 
-    // ৩. প্রত্যেক স্টুডেন্টের হাজিরা ও মার্কস বের করা
     const progressData = await Promise.all(students.map(async (student) => {
-      // হাজিরা
+      
+      // ১. হাজিরা বের করা
       const attendanceRecords = await db.collection("attendance").find({ 
         studentId: student._id,
         classId: classData._id 
@@ -32,21 +30,27 @@ export async function GET(req: Request) {
       const presentClasses = attendanceRecords.filter(a => a.status === "Present").length;
       const attendancePercentage = totalClasses > 0 ? Math.round((presentClasses / totalClasses) * 100) : 0;
 
-      // মার্কস
+      // ২. মার্কস বের করা
       const marksRecords = await db.collection("marks").find({ 
         studentId: student._id,
         classId: classData._id 
       }).toArray();
       
-      const totalMarks = marksRecords.reduce((sum, m) => sum + m.mark, 0);
-      const avgMarks = marksRecords.length > 0 ? Math.round(totalMarks / marksRecords.length) : 0;
+      let totalMarks = 0;
+      marksRecords.forEach((m) => {
+        totalMarks += m.mark;
+      });
+
+      // এখানে ফিক্স করা হলো: Full Marks সবসময় ১১০ হবে
+      const fullMarks = 110; 
 
       return {
         _id: student._id,
         name: student.name,
         roll: student.roll,
         attendancePercentage,
-        avgMarks,
+        totalMarks, // ছাত্র যা পেয়েছে (যেমন ১০৫)
+        fullMarks,  // মোট নম্বর (সবসময় ১১০)
         totalClasses
       };
     }));
