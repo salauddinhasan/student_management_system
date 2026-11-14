@@ -1,19 +1,13 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
 type Role = "admin" | "teacher" | "student";
 
 type User = {
   name: string;
   role: Role;
-  photo?: string;
 };
 
 type AuthContextType = {
@@ -31,16 +25,35 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
+  // পেজ লোড হলে কুকি থেকে ইউজারের তথ্য নেওয়া
   useEffect(() => {
-     
-    setUser(null);
-    setLoading(false);
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Auth check failed", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   const logout = async () => {
-    // TODO: API call
-    setUser(null);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      setUser(null);
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (
