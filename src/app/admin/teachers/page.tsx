@@ -129,7 +129,7 @@ export default function TeachersPage() {
       {/* Add Teacher Modal */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-lg relative">
             <h2 className="text-xl font-bold text-white mb-6">Add New Teacher</h2>
             <form onSubmit={handleAddTeacher} className="flex flex-col gap-4">
               <div>

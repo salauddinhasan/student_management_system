@@ -6,10 +6,7 @@ export default function CTASection() {
       <div className="max-w-7xl mx-auto px-8">
         
         {/* CTA Box */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-violet-900/40 to-[#09090b] border border-violet-500/20 p-12 md:p-20 text-center shadow-2xl shadow-violet-900/20">
-          
-          {/* Background Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-violet-500/30 rounded-full blur-[80px] pointer-events-none" />
+        <div className="relative overflow-hidden rounded-3xl bg-white/[0.03] border border-white/[0.08] p-12 md:p-20 text-center shadow-sm">
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">

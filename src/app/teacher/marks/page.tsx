@@ -121,7 +121,7 @@ function MarksContent() {
       </div>
 
       {/* Student List with Marks Input */}
-      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
         {students.length === 0 ? (
           <div className="p-10 text-center text-slate-400 text-lg">
             No students found for this semester.

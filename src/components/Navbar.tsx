@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -14,6 +15,28 @@ const NAV_LINKS = [
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(href + "/");
+}
+
+function ThemeToggleButton() {
+  const { toggleTheme } = useTheme();
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label="Toggle color theme"
+      title="Toggle color theme"
+      className="flex items-center cursor-pointer justify-center w-10 h-10 rounded-lg border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white transition"
+    >
+      <svg className="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+      </svg>
+      <svg className="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+      </svg>
+    </button>
+  );
 }
 
 export default function Navbar() {
@@ -31,7 +54,7 @@ export default function Navbar() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-neutral-800 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -73,9 +96,10 @@ export default function Navbar() {
 
           {/* Right */}
           <div className="hidden md:flex items-center gap-4">
+            <ThemeToggleButton />
             {user ? (
               <div className="flex items-center gap-3">
-                <span className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-700 text-white flex items-center justify-center text-sm font-semibold">
+                <span className="theme-avatar w-10 h-10 rounded-full bg-neutral-800 text-white flex items-center justify-center text-sm font-semibold">
                   {user.name.charAt(0).toUpperCase()}
                 </span>
                 <span className="text-base text-slate-200">{user.name}</span>
@@ -128,19 +152,25 @@ export default function Navbar() {
               ))}
               <div className="border-t border-white/5 my-2" />
               {user ? (
-                <Link
-                  href={`/${user.role}`}
-                  className="px-4 py-3 text-base text-slate-300 hover:bg-white/5 rounded-lg"
-                >
-                  Dashboard
-                </Link>
+                <div className="flex items-center justify-between gap-3">
+                  <Link
+                    href={`/${user.role}`}
+                    className="px-4 py-3 text-base text-slate-300 hover:bg-white/5 rounded-lg"
+                  >
+                    Dashboard
+                  </Link>
+                  <ThemeToggleButton />
+                </div>
               ) : (
-                <Link
-                  href="/login"
-                  className="px-4 py-3 text-base bg-white text-slate-900 rounded-lg text-center font-semibold"
-                >
-                  Login
-                </Link>
+                <div className="flex items-center justify-between gap-3">
+                  <Link
+                    href="/login"
+                    className="flex-1 px-4 py-3 text-base bg-white text-slate-900 rounded-lg text-center font-semibold"
+                  >
+                    Login
+                  </Link>
+                  <ThemeToggleButton />
+                </div>
               )}
             </div>
           </div>

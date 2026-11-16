@@ -63,7 +63,7 @@ function StudentsContent() {
       </div>
 
       {/* স্টুডেন্ট লিস্ট (অ্যাডমিনের মতো ডিজাইন) */}
-      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-400 min-w-[600px]">
             <thead className="text-xs uppercase bg-white/[0.02] border-b border-white/[0.06] text-slate-500">

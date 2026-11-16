@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
 type Role = "admin" | "teacher" | "student";
@@ -13,12 +13,14 @@ type User = {
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  refreshUser: () => Promise<User | null>;
   logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
+  refreshUser: async () => null,
   logout: async () => {},
 });
 
@@ -27,7 +29,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // পেজ লোড হলে কুকি থেকে ইউজারের তথ্য নেওয়া
+  const refreshUser = useCallback(async () => {
+    const res = await fetch("/api/auth/me");
+    if (!res.ok) {
+      setUser(null);
+      return null;
+    }
+
+    const data = await res.json();
+    setUser(data.user);
+    return data.user as User;
+  }, []);
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -57,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, refreshUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

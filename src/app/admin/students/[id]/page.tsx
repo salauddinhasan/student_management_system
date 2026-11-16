@@ -55,13 +55,13 @@ export default function StudentDetailsPage() {
       </button>
 
       {/* Profile Header Card */}
-      <div className="relative bg-[#09090b] border border-white/[0.06] rounded-3xl p-8 md:p-10 overflow-hidden shadow-2xl">
+      <div className="relative bg-[#09090b] border border-white/[0.06] rounded-3xl p-8 md:p-10 overflow-hidden shadow-sm">
         <div className="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-600/10 rounded-full blur-[80px] pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8">
           {/* Avatar */}
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-300 flex items-center justify-center font-bold text-6xl border-2 border-violet-500/30 shadow-xl shadow-violet-500/10">
+          <div className="w-32 h-32 rounded-full bg-white/[0.08] text-slate-200 flex items-center justify-center font-bold text-6xl border-2 border-white/[0.12]">
             {student.name.charAt(0)}
           </div>
 

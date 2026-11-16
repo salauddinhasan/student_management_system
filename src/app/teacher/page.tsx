@@ -33,11 +33,11 @@ export default function TeacherDashboard() {
     <div className="flex flex-col gap-8 max-w-7xl mx-auto pb-10">
       
       {/* ================= ১. প্রোফাইল হেডার ================= */}
-      <div className="relative bg-[#09090b] border border-white/[0.06] rounded-3xl p-8 md:p-10 overflow-hidden shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8">
+      <div className="p-8 md:p-10 gap-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.16] transition-all group relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-violet-600/15 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none" />
         
-        <div className="relative z-10 w-24 h-24 rounded-full bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-300 flex items-center justify-center font-bold text-4xl border-2 border-violet-500/30 shadow-xl shadow-violet-500/10 shrink-0">
+        <div className="relative z-10 w-24 h-24 rounded-full bg-white/[0.08] text-slate-200 flex items-center justify-center font-bold text-4xl border-2 border-white/[0.12] shrink-0">
           {user?.name?.charAt(0) || "T"}
         </div>
 
@@ -69,7 +69,7 @@ export default function TeacherDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           
           {/* Attendance Action with Dropdown */}
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-violet-900/40 to-[#09090b] border border-violet-500/20 hover:border-violet-500/50 transition-all group relative overflow-hidden">
+          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.16] transition-all group relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-violet-500/10 rounded-full blur-2xl group-hover:bg-violet-500/20 transition-all" />
             <div className="w-12 h-12 rounded-xl bg-violet-500/20 text-violet-400 flex items-center justify-center mb-4 border border-violet-500/30">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
@@ -91,7 +91,7 @@ export default function TeacherDashboard() {
           </div>
 
           {/* Marks Action with Dropdown */}
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-fuchsia-900/40 to-[#09090b] border border-fuchsia-500/20 hover:border-fuchsia-500/50 transition-all group relative overflow-hidden">
+          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.16] transition-all group relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-fuchsia-500/10 rounded-full blur-2xl group-hover:bg-fuchsia-500/20 transition-all" />
             <div className="w-12 h-12 rounded-xl bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center mb-4 border border-fuchsia-500/30">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
@@ -115,7 +115,7 @@ export default function TeacherDashboard() {
           {/* Progress Report (এটা আগের মতোই কাজ করবে) */}
           <div 
             onClick={() => router.push('/teacher/progress')}
-            className="p-6 rounded-2xl bg-gradient-to-br from-emerald-900/40 to-[#09090b] border border-emerald-500/20 hover:border-emerald-500/50 transition-all cursor-pointer group relative overflow-hidden"
+            className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.16] transition-all cursor-pointer group relative overflow-hidden"
           >
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
             <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/30">

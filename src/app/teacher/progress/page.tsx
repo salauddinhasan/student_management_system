@@ -131,7 +131,7 @@ function ProgressContent() {
       </div>
 
       {/* Table */}
-      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-400 min-w-[700px]">
             <thead className="text-xs uppercase bg-white/[0.02] border-b border-white/[0.06] text-slate-500">
@@ -190,7 +190,7 @@ function ProgressContent() {
       {/* Edit Marks Modal */}
       {editStudent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-2xl">
+          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-lg">
             <h2 className="text-xl font-bold text-white mb-1">Edit Marks</h2>
             <p className="text-sm text-slate-400 mb-6">{editStudent.name} (Roll: {editStudent.roll})</p>
             

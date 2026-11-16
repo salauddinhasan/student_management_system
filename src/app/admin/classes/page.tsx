@@ -3,9 +3,24 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
+type ClassItem = {
+  _id: string;
+  subject: string;
+  semester: string;
+  section: string;
+  teacherDetails?: {
+    name?: string | null;
+  } | null;
+};
+
+type TeacherOption = {
+  _id: string;
+  name: string;
+};
+
 export default function ClassesPage() {
-  const [classes, setClasses] = useState<any[]>([]);
-  const [teachers, setTeachers] = useState<any[]>([]);
+  const [classes, setClasses] = useState<ClassItem[]>([]);
+  const [teachers, setTeachers] = useState<TeacherOption[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -18,11 +33,11 @@ export default function ClassesPage() {
         fetch("/api/teachers")
       ]);
       
-      const classesData = await classesRes.json();
-      const teachersData = await teachersRes.json();
+      const classesData: { classes?: ClassItem[] } = await classesRes.json();
+      const teachersData: { teachers?: TeacherOption[] } = await teachersRes.json();
 
-      if (classesRes.ok) setClasses(classesData.classes || []);
-      if (teachersRes.ok) setTeachers(teachersData.teachers || []);
+      if (classesRes.ok) setClasses(classesData.classes ?? []);
+      if (teachersRes.ok) setTeachers(teachersData.teachers ?? []);
     } catch (error) {
       toast.error("Failed to load data");
     } finally {
@@ -96,7 +111,7 @@ export default function ClassesPage() {
                   <td colSpan={4} className="px-6 py-10 text-center text-slate-500">No classes assigned yet.</td>
                 </tr>
               ) : (
-                classes.map((cls: any) => (
+                classes.map((cls) => (
                   <tr key={cls._id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-6 py-4 font-medium text-white">{cls.subject}</td>
                     <td className="px-6 py-4 flex items-center gap-3">
@@ -119,7 +134,7 @@ export default function ClassesPage() {
       {/* Assign Class Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+          <div className="bg-[#121214] border border-white/[0.08] rounded-2xl w-full max-w-md p-6 shadow-lg relative">
             <h2 className="text-xl font-bold text-white mb-6">Assign New Class</h2>
             <form onSubmit={handleAssignClass} className="flex flex-col gap-4">
               
@@ -127,7 +142,7 @@ export default function ClassesPage() {
                 <label className="block text-sm font-medium text-slate-300 mb-1.5">Select Teacher</label>
                 <select value={newClass.teacherId} onChange={(e) => setNewClass({...newClass, teacherId: e.target.value})} className="w-full px-4 py-2.5 bg-black/50 border border-white/10 rounded-lg text-white focus:outline-none focus:border-violet-500" required>
                   <option value="" disabled>Select a teacher</option>
-                  {teachers.map((t: any) => (
+                  {teachers.map((t) => (
                     <option key={t._id} value={t._id}>{t.name}</option>
                   ))}
                 </select>

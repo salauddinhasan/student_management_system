@@ -1,6 +1,23 @@
+ "use client";
+
  import Link from "next/link";
+ import { useRouter } from "next/navigation";
+ import toast from "react-hot-toast";
+ import { useAuth } from "@/context/AuthContext";
 
 const HomePage = () => {
+   const router = useRouter();
+   const { refreshUser } = useAuth();
+
+   const handleGetStarted = async () => {
+     try {
+       const user = await refreshUser();
+       router.push(user ? `/${user.role}` : "/login");
+     } catch {
+       toast.error("Could not verify your login. Please try again.");
+     }
+   };
+
   return (
     <div className="min-h-screen bg-[#09090b] text-white relative overflow-hidden flex flex-col justify-center">
       
@@ -20,7 +37,7 @@ const HomePage = () => {
         <h1 className="animate-fade-in-up delay-100 text-6xl md:text-7xl font-bold mb-8 tracking-tight leading-[1.1]">
           Student Management
           <br />
-          <span className="bg-gradient-to-r from-violet-400 to-purple-500 bg-clip-text text-transparent">
+          <span className="text-slate-300">
             System
           </span>
         </h1>
@@ -33,12 +50,13 @@ const HomePage = () => {
 
         {/* Buttons */}
         <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/admin"
+          <button
+            type="button"
+            onClick={handleGetStarted}
             className="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-900 rounded-lg font-semibold hover:bg-slate-200 hover:scale-105 transition-all duration-300 text-base shadow-[0_0_20px_rgba(139,92,246,0.3)]"
           >
             Get Started
-          </Link>
+          </button>
           <Link
             href="/about"
             className="w-full sm:w-auto px-8 py-3.5 bg-white/5 border border-white/10 text-white rounded-lg font-semibold hover:bg-white/10 hover:scale-105 transition-all duration-300 text-base backdrop-blur-sm"

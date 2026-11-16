@@ -45,7 +45,7 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
       `}>
         <div className="h-16 flex items-center px-6 border-b border-white/[0.06]">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="w-4 h-4">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                 <path d="M6 12v5c3 3 9 3 12 0v-5" />

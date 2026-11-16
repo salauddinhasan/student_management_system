@@ -29,7 +29,7 @@ export default function StatsSection() {
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-violet-500/50 transition-all duration-500 group"
+              className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:border-white/[0.16] transition-all duration-300 group"
             >
               {/* Inner Card */}
               <div className="h-full bg-white/[0.02] rounded-2xl p-8 md:p-10 flex flex-col items-center justify-center text-center backdrop-blur-md group-hover:bg-white/[0.04] transition-colors duration-500">
